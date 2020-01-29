@@ -101,3 +101,24 @@ eyes_and_empathy <- list(eyes_code = eye_color,
                          empathy = empathy_score)
 
 eyes_and_empathy
+
+
+# t.test returns a list
+t_result <- t.test(eyes_and_empathy$empathy, mu = 30)
+t_result
+
+
+## data frame
+e <- data.frame(eye_color, f_eye_color, empathy_score)
+e
+e[7, 3]
+e[7,]
+
+e.blue <- e$empathy_score[e$f_eye_color == "blue"]
+e.blue
+e.green <- e$empathy_score[e$f_eye_color == "green"]
+e.green
+e.hazel <- e$empathy_score[e$f_eye_color == "hazel"]
+e.hazel
+e.means <- c(mean(e.blue), mean(e.green), mean(e.hazel))
+e.means
