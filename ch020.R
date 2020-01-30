@@ -122,3 +122,29 @@ e.hazel <- e$empathy_score[e$f_eye_color == "hazel"]
 e.hazel
 e.means <- c(mean(e.blue), mean(e.green), mean(e.hazel))
 e.means
+
+
+## packages
+library(MASS)
+anorexia
+
+# mean weight change (in pounds)
+mean(anorexia$Postwt - anorexia$Prewt)
+
+# control group
+cont <- anorexia[anorexia$Treat == "Cont",]
+mean(cont$Postwt - cont$Prewt)
+
+# cognitive behavioural treatment
+cbt <- anorexia[anorexia$Treat == "CBT",]
+mean(cbt$Postwt - cbt$Prewt)
+
+# family treatment
+ft <- anorexia[anorexia$Treat == "FT",]
+mean(ft$Postwt - ft$Prewt)
+
+# t-test: weight diff zero?
+t.test(anorexia$Postwt - anorexia$Prewt, mu = 0)
+
+# analysis of variance
+aov(Postwt-Prewt ~ Treat, data = anorexia)
