@@ -148,3 +148,30 @@ t.test(anorexia$Postwt - anorexia$Prewt, mu = 0)
 
 # analysis of variance
 aov(Postwt-Prewt ~ Treat, data = anorexia)
+
+
+## read and write files
+
+scores_frame <- data.frame(
+    student = seq(1, 10),
+    math_score = c(85, 91, 78, 88, 93, 82, 67, 79, 89, 98),
+    science_score = c(90, 87, 75, 78, 99, 89, 71, 84, 88, 97))
+
+# xlsx
+
+# library readxl is part of tidyverse
+# writexl has to be installed separately
+library(writexl)
+
+# write xlsx
+writexl::write_xlsx(scores_frame,"./data/simpleExcel.xlsx")
+# read xlsx
+sc1 <- as.data.frame(readxl::read_xlsx("./data/simpleExcel.xlsx",))
+
+# csv
+write.csv(scores_frame, file = "./data/simple.csv", row.names = FALSE)
+sc2 <- read.csv("./data/simple.csv")
+
+# text
+write.table(scores_frame, file = "./data/simple.txt", row.names = FALSE)
+sc3 <- read.table("./data/simple.txt", header = TRUE)
