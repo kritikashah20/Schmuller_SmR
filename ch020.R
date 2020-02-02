@@ -155,7 +155,8 @@ aov(Postwt-Prewt ~ Treat, data = anorexia)
 scores_frame <- data.frame(
     student = seq(1, 10),
     math_score = c(85, 91, 78, 88, 93, 82, 67, 79, 89, 98),
-    science_score = c(90, 87, 75, 78, 99, 89, 71, 84, 88, 97))
+    science_score = c(90, 87, 75, 78, 99, 89, 71, 84, 88, 97)
+    )
 
 # xlsx
 
