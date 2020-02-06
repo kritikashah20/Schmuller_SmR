@@ -35,7 +35,7 @@ lines(density(Cars93$Price))
 
 
 
-## bar chart
+## Bar Chart
 
 # distribution of type
 table(Cars93$Type)
@@ -54,25 +54,23 @@ barplot(
 
 
 
-## pie chart
+## Pie Chart
 pie(table(Cars93$Type), main = "Distribution of Car Types")
 
 
 
-## dot chart
+## Dot Chart
 # a kind of horizontal bar chart
-car_types <- data.frame(table(Cars93$Type))
-car_types
-dotchart(car_types$Freq, car_types$Var1)
+type.frame <- data.frame(table(Cars93$Type))
+type.frame
+dotchart(type.frame$Freq, type.frame$Var1)
 
 # also works using subsetting notation
-dotchart(car_types[,2], car_types[,1])
+dotchart(type.frame[,2], type.frame[,1])
 
 
 
-
-
-# grouped bar plot
+## Grouped Bar Chart
 
 # US commercial space revenues 1990 - 1994
 rev.values <-
@@ -105,7 +103,7 @@ color.names = c(
   "grey75",
   "white")
 
-# bar plot
+# bar chart
 # beside=TRUE - bars will be besides each other
 barplot(
   space.rev,
@@ -120,10 +118,67 @@ legend(1,2300,rownames(space.rev), cex=0.7, fill = color.names, bty = "n")
 
 
 
+## Scatter Plot
+
+# with labels
+plot(
+  Cars93$Horsepower,
+  Cars93$MPG.city,
+  xlab = "Horsepower",
+  ylab = "MPG City",
+  main = "MPG City vs Horsepower"
+)
+
+# using formula notation
+plot(
+  Cars93$MPG.city ~ Cars93$Horsepower,
+  xlab = "Horsepower",
+  ylab = "MPG City",
+  main = "MPG City ~ Horsepower"
+)
+
+# filled black dots
+plot(
+  Cars93$Horsepower,
+  Cars93$MPG.city,
+  xlab = "Horsepower",
+  ylab = "MPG City",
+  main = "MPG City ~ Horsepower",
+  pch = 16
+)
+
+# plotting character = number of cylinders
+# (adding 3rd variable)
+plot(
+  Cars93$Horsepower,
+  Cars93$MPG.city,
+  xlab = "Horsepower",
+  ylab = "MPG City",
+  main = "MPG City ~ Horsepower",
+  pch = as.character(Cars93$Cylinders)
+)
 
 
-## scatter plot
 
-# base R
-plot(Cars93$Horsepower, Cars93$MPG.city)
+## Scatter Plot Matrix
+cars.subset <- subset(Cars93, select = c(MPG.city, Price, Horsepower))
+head(cars.subset)
+pairs(cars.subset)
 
+cars.subset <- subset(Cars93, select = c(MPG.city, Price, Horsepower, Cylinders))
+head(cars.subset)
+pairs(cars.subset)
+
+
+
+## Box Plot
+
+boxplot(Cars93$Horsepower ~ Cars93$Cylinders)
+
+# nice labels
+boxplot(Cars93$Horsepower ~ Cars93$Cylinders,
+        xlab = "Cylinders",
+        ylab = "Horsepower")
+
+# nice labels using 'data' argument
+boxplot(Horsepower ~ Cylinders, data = Cars93)
