@@ -1,36 +1,8 @@
-library(tidyverse)
+library(ggplot2)
 library(MASS)
 
-### base R graphics
 
 ## histogram
-
-# distribution of price
-hist(Cars93$Price)
-
-# same with labels
-hist(Cars93$Price,
-     xlab = "Price (x $1,000)",
-     ylab = "Frequency",
-     xlim = c(0, 70),
-     main = "Prices of 93 Models of 1993 Cars")
-
-# same with probability instead of frequency
-hist(Cars93$Price,
-     xlab = "Price (x $1,000)",
-     ylab = "Probability",
-     xlim = c(0, 70),
-     main = "Prices of 93 Models of 1993 Cars",
-     probability = TRUE)
-
-# adding density line
-hist(Cars93$Price,
-     xlab = "Price (x $1,000)",
-     ylab = "Probability",
-     xlim = c(0, 70),
-     main = "Prices of 93 Models of 1993 Cars",
-     probability = TRUE)
-lines(density(Cars93$Price))
 
 # histogram with ggplot2
 # (bins of $5,000 between $0 and $65,000)
@@ -42,22 +14,20 @@ ggplot(data = Cars93) +
 
 
 
-## barchart
 
-# distribution of type
+## bar chart
 
+# barchart using ggplot2
 ggplot(data = Cars93) +
   aes(Cars93$Type) +
   geom_bar() +
   xlab("Type") +
-  ylab("Frequency")
+  ylab("Frequency") +
+  labs(title = "Car Types Distribution", subtitle = "1993", caption = "Data Source: MASS")
 
 
 
 ## scatter plot
-
-# base R
-plot(Cars93$Horsepower, Cars93$MPG.city)
 
 # ggplot2
 ggplot(data = Cars93) + aes(x = Cars93$Horsepower, y = Cars93$MPG.city) +
