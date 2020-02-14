@@ -132,39 +132,62 @@ ggplot(space.melt, aes(y = Revenue, x = Year, fill = Industry)) +
 
 
 
-
-# barchart using ggplot2
-ggplot(data = Cars93, aes(x = Cars93$Type)) +
-  geom_bar() +
-  xlab("Type") +
-  ylab("Frequency") +
-  labs(title = "Car Types Distribution", subtitle = "1993", caption = "Data Source: MASS")
-
-
-
-## scatter plot
+## Scatter Plot
 
 # ggplot2
-ggplot(data = Cars93) + aes(x = Cars93$Horsepower, y = Cars93$MPG.city) +
+ggplot(data = Cars93, aes(x = Horsepower, y = MPG.city)) +
   geom_point() +
-  xlab("Horsepower") + ylab("MPG City")
+  labs(title = "Cars City Mileage depending on Horsepower",
+       caption = "Data Source: MASS, Cars93",
+       y = "Miles per Gallon (City)")
 
-# colored 3rd variable (type)
-ggplot(data = Cars93) +
-  aes(x = Cars93$Horsepower,
-      y = Cars93$MPG.city,
-      color = Type) +
+# 3rd variable: number of cylinders (instead of a dot)
+ggplot(data = Cars93, aes(x = Horsepower, y = MPG.city, label = Cylinders)) +
+  geom_text() +
+  labs(title = "Cars City Mileage depending on Horsepower and Number of Cylinders",
+       caption = "Data Source: MASS, Cars93",
+       y = "Miles per Gallon (City)")
+
+# same with removed grid and gray background
+ggplot(data = Cars93, aes(x = Horsepower, y = MPG.city, label = Cylinders)) +
+  geom_text() +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+# 3rd variable: car type (as color)
+ggplot(data = Cars93, aes(x = Horsepower, y = MPG.city, color = Type)) +
   geom_point() +
-  xlab("Horsepower") + ylab("MPG City")
+  labs(x = "Horsepower", y = "MPG City")
 
 
 
-## box plots
+## Scatter Plot Matrix
+
+library(GGally)
+# with three variables
+cars.subset <- subset(Cars93, select = c(MPG.city, Price, Horsepower))
+ggpairs(cars.subset)
+
+# with four variables
+cars.subset <- subset(Cars93, select = c(MPG.city, Price, Horsepower, Cylinders))
+ggpairs(cars.subset)
+
+
+
+
+## Box Plots
 
 # horsepower ~ cylinders
-ggplot(data = Cars93) + aes(x = Cylinders, y = Horsepower) + geom_point()
+ggplot(data = Cars93, aes(x = Cylinders, y = Horsepower)) +
+  geom_boxplot()
 
-# as boxplot
-ggplot(data = Cars93) + aes(x = Cylinders, y = Horsepower) + geom_boxplot()
+# boxplot with underlying data
+ggplot(data = Cars93, aes(x = Cylinders, y = Horsepower)) +
+  geom_boxplot() +
+  geom_point()
 
-
+# boxplot with jittered underlying data
+ggplot(data = Cars93, aes(x = Cylinders, y = Horsepower)) +
+  geom_boxplot() +
+  geom_point() +
+  geom_jitter()
